@@ -13,6 +13,7 @@ function ProtectedRoute(props) {
   const getUser = async () => {
     try {
       dispatch(showLoading());
+      console.log(process.env.REACT_APP_BASE_URL);
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/user/get-user-info-by-id`,
         { token: localStorage.getItem("token") },
@@ -32,7 +33,6 @@ function ProtectedRoute(props) {
     } catch (error) {
       dispatch(hideLoading());
       localStorage.clear();
-        
     }
   };
   useEffect(() => {
@@ -40,7 +40,6 @@ function ProtectedRoute(props) {
       getUser();
     }
   }, [user]);
-
 
   if (localStorage.getItem("token")) {
     return props.children;
